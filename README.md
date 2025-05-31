@@ -86,7 +86,7 @@ streamlit run bioops.py
 ## 📋 Requirements
 
 ### System Requirements
-- Ubuntu 20.04+ (or compatible Linux distribution)
+- Ubuntu 22.04+ (or compatible Linux distribution)
 - Python 3.12+
 - Java 17+ (for P2Rank)
 - 8GB RAM minimum (16GB recommended)
