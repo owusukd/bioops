@@ -1,0 +1,115 @@
+#!/bin/bash
+
+# Script to install FATCAT 3D structure alignment, APoc pocket comparison, 
+# APBS, pdb2pqr and P2Rank binding pocket prediction on Ubuntu
+
+# Update and install prerequisites
+sudo apt update && sudo apt upgrade -y
+sudo add-apt-respository multiverse
+sudo add-apt-repository universe
+sudo add-apt-repository restricted
+sudo apt install -y \
+    build-essential \
+    dpkg-dev \
+    unzip \
+    cmake \
+    git \
+    tar \
+    libboost-dev \
+    libarpack2-dev \
+    libf2c2-dev \
+    libeigen3-dev \
+    libboost-dev \
+    python3-all \
+    python3-all-dev \
+    python3-pip \
+    libopenblas-serial-dev \
+    liblapack-dev \
+    libsuitesparse-dev \
+    libsuperlu-dev \
+    python3-venv \
+    libssl-dev \
+    libffi-dev \
+    curl \
+    openjdk-17-jdk \
+    openjdk-17-jre \
+    wget
+
+echo "export JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64" >> ~/.bashrc
+sudo ufw enable
+sudo ufw status
+sudo apt update
+
+# Install pyenv
+# This will help us install a specific version of Python
+# and manage multiple Python versions
+curl https://pyenv.run | bash
+pyenv install 3.12.3  # Example version
+pyenv global 3.12.3
+
+# Install FATCAT 3D structure alignment
+# The package is already built and available to use
+# in the FATCAT-dist repository, so we just need to clone it and add it to PATH
+echo "Installing FATCAT..."
+mkdir -p ./tools && cd ./tools
+git clone https://github.com/GodzikLab/FATCAT-dist.git
+echo 'export PATH="'$PWD'/FATCAT-dist/FATCATMain:$PATH"' >> ~/.bashrc
+echo "FATCAT installed in ./tools/FATCAT-dist"
+
+# Install APoc pocket comparison
+# The package is part of this repo so we just have to un-tar it
+# and add it to PATH
+echo "Installing APoc..."
+cp ../apoc_v1b16.tar.gz .
+tar -xvzf ./apoc_v1b16.tar.gz
+echo 'export PATH="'$PWD'/apoc/bin:$PATH"' >> ~/.bashrc
+rm apoc_v1b16.tar.gz
+echo "APoc installed in ./tools/apoc"
+
+# Install P2Rank binding pocket prediction
+# The package is already built and available to use
+# in the p2rank release, so we just need to download it and add it to PATH
+echo "Installing P2Rank..."
+wget https://github.com/rdk/p2rank/releases/download/2.5/p2rank_2.5.tar.gz
+tar -xvzf p2rank_2.5.tar.gz
+echo 'export PATH="'$PWD'/p2rank_2.5:$PATH"' >> ~/.bashrc
+rm p2rank_2.5.tar.gz
+echo "P2Rank installed in ./tools/p2rank_2.5"
+
+# Install APBS
+# The package is already built and available to use
+# in the APBS release, so we just need to download it and add it to PATH
+echo "Installing APBS..."
+wget https://github.com/Electrostatics/apbs/releases/download/v3.4.1/APBS-3.4.1.Linux.zip
+unzip APBS-3.4.1.Linux.zip
+echo 'export PATH="'$PWD'/APBS-3.4.1.Linux/bin:$PATH"' >> ~/.bashrc
+rm APBS-3.4.1.Linux.zip
+echo "APBS installed in ./tools/APBS-3.4.1.Linux"
+
+# Install pdb2pqr
+sudo apt install -y pdb2pqr
+
+# Apply changes to .bashrc
+# This will make the changes take effect in the current terminal session
+# and in future sessions
+# Note: This will only work if the user is using bash as their shell
+# If the user is using a different shell, they will need to manually
+# add the export commands to their shell's configuration file
+source ~/.bashrc
+echo "Installation complete. Please restart your terminal or run 'source ~/.bashrc' to update your PATH."
+cd ..
+# Install Python packages
+# Create a virtual environment for the Python packages
+python3 -m venv .bioops
+source .bioops/bin/activate
+# Install the required Python packages  from the requirements.txt file
+# Note: The requirements.txt file should be in the same directory as this script
+# If the file is not present, the script will fail
+
+if [ ! -f requirements.txt ]; then
+    echo "Error: requirements.txt file not found. Please make sure it is in the same directory as this script."
+    exit 1
+fi
+pip install -r requirements.txt
+echo "Python packages installed in the virtual environment .bioops"
+

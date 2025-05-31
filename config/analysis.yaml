@@ -1,0 +1,188 @@
+# BioOps Analysis Configuration
+# Default parameters for protein analysis tools
+
+# FATCAT Configuration
+fatcat:
+  enabled: true
+  timeout: 600  # seconds
+  parameters:
+    flexible: true  # Use flexible alignment
+    output_format: "pdb"
+    alignment_format: "aln"
+  thresholds:
+    min_alignment_length: 50
+    max_rmsd: 10.0
+    min_sequence_identity: 0.1
+
+# P2Rank Configuration
+p2rank:
+  enabled: true
+  timeout: 900  # seconds
+  parameters:
+    threads: 8
+    min_pocket_size: 20
+    max_pockets: 20
+    vis_copy_proteins: false
+    conservation: false  # Enable if MSA available
+  model: "default"  # or "conservation" if using MSA
+
+# APoc Configuration
+apoc:
+  enabled: true
+  timeout: 600  # seconds
+  parameters:
+    pocket_volume_cutoff: 50  # -pvol
+    pocket_length_cutoff: 5   # -plen
+    similarity_threshold: 0.5
+    p_value_threshold: 0.05
+  output:
+    include_alignment: true
+    include_statistics: true
+
+# APBS Configuration
+apbs:
+  enabled: true
+  timeout: 600  # seconds
+  grid:
+    dime: [97, 97, 97]  # Grid dimensions
+    cglen: [80.0, 80.0, 80.0]  # Coarse grid lengths
+    fglen: [60.0, 60.0, 60.0]  # Fine grid lengths
+  physics:
+    pdie: 2.0  # Protein dielectric
+    sdie: 78.54  # Solvent dielectric
+    srad: 1.4  # Solvent radius
+    swin: 0.3  # Surface width
+    temp: 298.15  # Temperature (K)
+    sdens: 10.0  # Surface density
+  ions:
+    - charge: 1
+      concentration: 0.150
+      radius: 2.0
+    - charge: -1
+      concentration: 0.150
+      radius: 2.0
+
+# PDB2PQR Configuration
+pdb2pqr:
+  enabled: true
+  timeout: 300  # seconds
+  parameters:
+    forcefield: "AMBER"
+    ph: 7.0
+    optimize_hydrogen: true
+    clean: true
+    debump: true
+
+# Analysis Pipeline Configuration
+pipeline:
+  # Maximum number of concurrent analyses
+  max_concurrent: 4
+  
+  # Steps to execute (in order)
+  steps:
+    - name: "structural_alignment"
+      tool: "fatcat"
+      required: true
+      retry_count: 2
+    
+    - name: "pocket_prediction"
+      tool: "p2rank"
+      required: true
+      retry_count: 2
+    
+    - name: "pocket_comparison"
+      tool: "apoc"
+      required: true
+      retry_count: 2
+      depends_on: ["pocket_prediction"]
+    
+    - name: "electrostatic_preparation"
+      tool: "pdb2pqr"
+      required: false
+      retry_count: 1
+      depends_on: ["pocket_prediction"]
+    
+    - name: "electrostatic_calculation"
+      tool: "apbs"
+      required: false
+      retry_count: 1
+      depends_on: ["electrostatic_preparation"]
+  
+  # Error handling
+  error_handling:
+    continue_on_error: false
+    save_partial_results: true
+    notification_enabled: false
+
+# Visualization Configuration
+visualization:
+  structure:
+    default_style: "cartoon"
+    color_scheme: "spectrum"
+    surface_opacity: 0.5
+    surface_probe_radius: 1.4
+    background_color: "white"
+  
+  electrostatic:
+    color_scheme: "rwb"  # red-white-blue
+    potential_range: [-5, 5]
+    opacity: 0.9
+    interpolation: "linear"
+  
+  pocket:
+    highlight_color: "orange"
+    transparency: 0.3
+    show_residue_labels: false
+
+# Performance Configuration
+performance:
+  caching:
+    enabled: true
+    ttl: 3600  # seconds
+    max_size_mb: 512
+    strategies:
+      - "pdb_downloads"
+      - "analysis_results"
+      - "visualizations"
+  
+  parallel_processing:
+    enabled: true
+    max_workers: 8
+    chunk_size: 1000
+  
+  memory_management:
+    max_memory_gb: 8
+    garbage_collection_threshold: 0.8
+    temp_file_cleanup: true
+
+# Quality Control
+quality_control:
+  input_validation:
+    check_pdb_format: true
+    check_chain_existence: true
+    max_atoms: 100000
+    min_atoms: 100
+    allowed_residues: "standard"  # or "all"
+  
+  output_validation:
+    check_pocket_count: true
+    min_pockets: 0
+    max_pockets: 50
+    check_alignment_quality: true
+    min_alignment_score: 0.1
+
+# Resource Limits
+resource_limits:
+  max_file_size_mb: 50
+  max_analysis_time_minutes: 30
+  max_memory_per_analysis_gb: 4
+  max_concurrent_tools: 4
+  disk_space_warning_gb: 10
+
+# Logging Configuration for Analysis
+analysis_logging:
+  log_commands: true
+  log_stdout: false
+  log_stderr: true
+  save_intermediate_files: false
+  debug_mode: false

@@ -1,0 +1,97 @@
+# Development and Testing Dependencies
+
+# Testing
+pytest==8.3.5
+pytest-cov==5.0.0
+pytest-mock==3.14.0
+pytest-asyncio==0.23.0
+pytest-xdist==3.6.1
+pytest-timeout==2.3.1
+pytest-benchmark==4.0.0
+coverage==7.5.1
+hypothesis==6.102.4
+
+# Code Quality
+black==24.4.2
+flake8==7.0.0
+flake8-docstrings==1.7.0
+flake8-annotations==3.1.1
+flake8-bugbear==24.4.26
+mypy==1.10.0
+isort==5.13.2
+pylint==3.2.2
+bandit==1.7.8
+pre-commit==3.7.1
+
+# Type Stubs
+types-requests==2.32.0
+types-PyYAML==6.0.12
+pandas-stubs==2.2.3
+
+# Documentation
+mkdocs==1.6.0
+mkdocs-material==9.5.25
+mkdocstrings[python]==0.25.1
+mkdocs-git-revision-date-localized-plugin==1.2.4
+mkdocs-pdf-export-plugin==0.5.10
+
+# Debugging
+ipdb==0.13.13
+pdbpp==0.10.3
+snoop==0.4.3
+
+# Profiling
+py-spy==0.3.14
+memory-profiler==0.61.0
+line-profiler==4.1.2
+guppy3==3.1.4
+
+# Security
+pip-audit==2.7.2
+safety==3.2.0
+
+# API Documentation
+pydoc-markdown==4.8.2
+
+# Development Tools
+watchdog==4.0.1
+python-dotenv==1.0.1
+invoke==2.2.0
+bump2version==1.0.1
+
+# Load Testing
+locust==2.27.0
+
+# Mock Data
+faker==25.2.0
+factory-boy==3.3.0
+
+# Code Analysis
+radon==6.0.1
+xenon==0.9.1
+prospector==1.10.3
+
+# Dependency Management
+pip-tools==7.4.1
+pipdeptree==2.26.1
+
+# Git Hooks
+gitlint==0.19.1
+
+# Build Tools
+build==1.2.1
+wheel==0.45.1
+setuptools==79.0.1
+twine==5.1.0
+
+# Containerization
+docker==7.0.0
+docker-compose==1.29.2
+
+# CI/CD
+tox==4.15.0
+nox==2024.4.15
+
+# Visualization of Dependencies
+graphviz==0.20.3
+pydeps==1.12.20

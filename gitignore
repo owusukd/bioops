@@ -1,0 +1,163 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+.bioops/
+venv-dev/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.pydevproject
+.settings/
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+.hypothesis/
+
+# Type Checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Jupyter
+.ipynb_checkpoints
+*.ipynb
+
+# Application specific
+tempDownloadDir/
+logs/
+*.log
+*.log.*
+results/
+backups/
+
+# Config files with secrets
+.env
+.env.local
+.env.*.local
+config/secrets.yaml
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Documentation
+docs/build/
+docs/_build/
+site/
+
+# Analysis results (keep structure, ignore content)
+tempDownloadDir/results/fatcat/*
+tempDownloadDir/results/p2rank/*
+tempDownloadDir/results/apoc/*
+tempDownloadDir/results/apbs/*
+tempDownloadDir/results/overlap_score/*
+!tempDownloadDir/results/fatcat/.gitkeep
+!tempDownloadDir/results/p2rank/.gitkeep
+!tempDownloadDir/results/apoc/.gitkeep
+!tempDownloadDir/results/apbs/.gitkeep
+!tempDownloadDir/results/overlap_score/.gitkeep
+
+# Tool binaries (installed by script)
+tools/
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.csr
+nginx/ssl/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Monitoring data
+prometheus-data/
+grafana-data/
+loki-data/
+
+# Package files
+*.zip
+*.rar
+*.7z
+
+# Performance profiling
+*.prof
+*.lprof
+.benchmarks/
+
+# Cache
+.cache/
+*.cache
+
+# Streamlit
+.streamlit/cache/
+.streamlit/config.toml
+!.streamlit/config.toml.example
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# Backup files
+backups/
+*.backup
+*.old
+
+# Local development files
+local/
+scratch/
+TODO.md
+NOTES.md

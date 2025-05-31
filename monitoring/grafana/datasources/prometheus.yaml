@@ -1,0 +1,32 @@
+# Grafana datasource configuration for Prometheus
+apiVersion: 1
+
+datasources:
+  - name: Prometheus
+    type: prometheus
+    access: proxy
+    orgId: 1
+    url: http://prometheus:9090
+    basicAuth: false
+    isDefault: true
+    jsonData:
+      timeInterval: "15s"
+      queryTimeout: "300s"
+      httpMethod: "POST"
+    editable: true
+    
+  - name: Loki
+    type: loki
+    access: proxy
+    orgId: 1
+    url: http://loki:3100
+    basicAuth: false
+    isDefault: false
+    jsonData:
+      maxLines: 1000
+      derivedFields:
+        - datasourceUid: prometheus
+          matcherRegex: "analysis_id=\"([^\"]+)\""
+          name: "Analysis ID"
+          url: '/explore?orgId=1&left=["now-1h","now","Prometheus",{"expr":"bioops_analyses_total{analysis_id=\"$${__value.raw}\"}"}]'
+    editable: true

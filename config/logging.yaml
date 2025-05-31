@@ -1,0 +1,115 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  default:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  
+  detailed:
+    format: '%(asctime)s - %(name)s - %(levelname)s - %(funcName)s:%(lineno)d - %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  
+  json:
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    format: '%(asctime)s %(name)s %(levelname)s %(funcName)s %(lineno)d %(message)s'
+    datefmt: '%Y-%m-%d %H:%M:%S'
+  
+filters:
+  debug_only:
+    class: logging.Filter
+    name: debug_filter
+  
+  error_only:
+    class: logging.Filter
+    name: error_filter
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: default
+    stream: ext://sys.stdout
+    
+  console_debug:
+    class: logging.StreamHandler
+    level: DEBUG
+    formatter: detailed
+    stream: ext://sys.stdout
+    filters: [debug_only]
+  
+  file_json:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: json
+    filename: logs/bioops.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 5
+    encoding: utf-8
+  
+  file_error:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: detailed
+    filename: logs/errors.log
+    maxBytes: 5242880  # 5MB
+    backupCount: 3
+    encoding: utf-8
+  
+  analysis_file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: json
+    filename: logs/analysis.log
+    maxBytes: 20971520  # 20MB
+    backupCount: 10
+    encoding: utf-8
+  
+  performance_file:
+    class: logging.handlers.RotatingFileHandler
+    level: INFO
+    formatter: json
+    filename: logs/performance.log
+    maxBytes: 10485760  # 10MB
+    backupCount: 5
+    encoding: utf-8
+
+loggers:
+  bioops:
+    level: DEBUG
+    handlers: [console, file_json, file_error]
+    propagate: false
+  
+  protFuncs:
+    level: DEBUG
+    handlers: [console, analysis_file, file_error]
+    propagate: false
+  
+  bioops.analysis:
+    level: DEBUG
+    handlers: [analysis_file]
+    propagate: false
+  
+  bioops.performance:
+    level: INFO
+    handlers: [performance_file]
+    propagate: false
+  
+  streamlit:
+    level: WARNING
+    handlers: [console]
+    propagate: false
+  
+  urllib3:
+    level: WARNING
+    handlers: [console]
+    propagate: false
+  
+  matplotlib:
+    level: WARNING
+    handlers: [console]
+    propagate: false
+
+root:
+  level: INFO
+  handlers: [console, file_json]
