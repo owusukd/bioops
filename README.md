@@ -262,9 +262,7 @@ bioops/
 ### Log Files
 
 Check logs for detailed error information:
-- Application logs: `logs/bioops.log`
-- Streamlit logs: `logs/streamlit.log`
-- Tool-specific logs in `tempDownloadDir/results/*/`
+- Application logs: `logs/*.log`
 
 ## 🤝 Contributing
 
@@ -294,7 +292,7 @@ black --check bioops.py protFuncs.py
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
 
 ## 🙏 Acknowledgments
 
@@ -304,6 +302,7 @@ BioOps integrates the following tools:
 - [APoc](https://doi.org/10.1093/bioinformatics/btt024) - Gao M. & Skolnick J. (2013)
 - [APBS](https://www.poissonboltzmann.org/) - Baker N.A. et al. (2001)
 - [PDB2PQR](https://www.poissonboltzmann.org/) - Dolinsky T.J. et al. (2007)
+- [What Makes GPCRs from Different Families Bind to the Same Ligand?](https://doi.org/10.3390/biom12070863) - Dankwah, K. O., Mohl, J. E., Begum, K., & Leung, M.-Y. (2022)
 
 ## 📧 Contact
 
