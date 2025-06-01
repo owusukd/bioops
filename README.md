@@ -5,8 +5,8 @@
   
   [![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/)
   [![Streamlit](https://img.shields.io/badge/streamlit-1.44-red.svg)](https://streamlit.io/)
-  [![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/)
   [![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://www.docker.com/)
+  [![License: CC BY-NC 4.0](https://licensebuttons.net/l/by-nc/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/)
 </div>
 
 ## 🧬 Overview
