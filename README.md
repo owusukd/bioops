@@ -221,6 +221,7 @@ bioops/
 
 3. **Permission Denied**
    ```bash
+   sudo ...                # Make sure you have sudo privilege
    chmod +x install_tools
    chmod +x tools/*/bin/*
    ```
