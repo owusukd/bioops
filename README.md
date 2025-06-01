@@ -27,42 +27,13 @@ BioOps is a comprehensive protein analysis platform specializing in Protein anal
 ### Using Docker (Recommended)
 
 ```bash
-# Clone the repository
-git clone https://github.com/owusukd/bioops.git
-cd bioops
+# Pull image from dockerhub
+sudo docker pull owusukd/bioops
 
-# Build and run with Docker Compose
-docker-compose up -d
+# Run with Docker
+sudo docker run -d -p 8501:8501 --name bioops owusukd/bioops:latest
 
-# Access the application at http://localhost:8501
-```
-
-### Using Make
-
-```
-BioOps Development and Deployment Commands
-==========================================
-Development:
-  make install      - Install dependencies and tools
-  make dev          - Run in development mode
-  make test         - Run tests
-  make lint         - Run linting
-  make format       - Format code
-  make docs         - Build documentation (not implemented)
-
-Docker:
-  make build        - Build Docker image
-  make run          - Run with Docker Compose
-  make stop         - Stop all containers
-  make clean        - Clean up containers and volumes
-  make prod         - Run in production mode
-  make monitoring   - Run with monitoring stack (still in the works)
-
-Maintenance:
-  make logs         - Show application logs
-  make shell        - Open shell in container
-  make backup       - Backup analysis results
-  make restore      - Restore from backup
+# Access at http://localhost:8501
 ```
 
 ### Manual Installation
@@ -266,7 +237,7 @@ Check logs for detailed error information:
 
 ## 🤝 Contributing
 
-We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+We welcome contributions! Please contact owner for guidelines.
 
 ### Development Setup
 
@@ -292,7 +263,7 @@ black --check bioops.py protFuncs.py
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
+Please contact owner for details.
 
 ## 🙏 Acknowledgments
 
