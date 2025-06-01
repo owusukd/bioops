@@ -293,7 +293,7 @@ black --check bioops.py protFuncs.py
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+BioOps is licensed for academic use under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/). For commercial use, contact [owusukd@yahoo.com](mailto:owusukd@yahoo.com).
 
 ## 🙏 Acknowledgments
 
